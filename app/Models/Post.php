@@ -32,7 +32,6 @@ class Post
         return collect($files)
             ->map(fn ($file) => YamlFrontMatter::parseFile($file))
             ->map(fn ($document) =>
-            //$document = YamlFrontMatter::parseFile($file);
 
             new Post(
                 $document->title,
@@ -40,8 +39,10 @@ class Post
                 $document->excerpt,
                 $document->date,
                 $document->body()
-            ));
+            ))
+            ->sortByDesc('date');
 
+        ////alternative
 
         // foreach ($files as $file) {
         //     $document = YamlFrontMatter::parseFile($file);
@@ -61,19 +62,12 @@ class Post
 
     public static function find(string $slug)
     {
-        //of all the blog posts, find the one that matches the one that was requested
-$posts = static::all();
-return $posts->firstWhere('slug', $slug);
+        $post = static::all()->firstWhere('slug', $slug);
 
+        if (!$post) {
+            throw new ModelNotFoundException();
+        }
 
-        // $path = resource_path("posts/{$slug}.html");
-
-        // if (!file_exists($path)) {
-        //     throw new ModelNotFoundException("not working");
-        // }
-
-        // return cache()->remember("posts.{$slug}", 1200, function () use ($path) {
-        //     return file_get_contents($path);
-        // });
+        return $post;
     }
 }
