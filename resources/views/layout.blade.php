@@ -8,11 +8,10 @@
     <title>My blog</title>
     <link rel="stylesheet" href="/app.css">
     </link>
-
 </head>
 
 <body>
-@yield('content')
+    @yield('content')
 </body>
 
 </html>

@@ -16,18 +16,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // $document = YamlFrontMatter::parseFile(resource_path('posts/my-fourth-post.html'));
-    // ddd($document->date);
-      
-$posts = Post::all();
-    return view('posts', ['posts' => $posts]);
+    $posts = Post::all();
+
+    return view('posts', ["posts" => $posts]);
 });
 
-Route::get('posts/{post}', function (string $slug) {
-    $post = Post::find($slug);
-
-    //ddd($post);
-
+//this approach works with other than ID(ex. slug)
+Route::get('posts/{post:slug}', function (Post $post) { //give me the Post where ('slug', $post)->first();
+    
     return view('post', ['post' => $post]);
-
 });
+
+//this approach works with ID
+// Route::get('posts/{post}', function (Post $post) {
+
+//     return view('post', ['post' => $post]);
+// });
+
+
+//classic approach
+// Route::get('posts/{id}', function (string $id) {
+//     $post = Post::findOrFail($id);
+
+//     return view('post', ['post' => $post]);
+// });
