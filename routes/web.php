@@ -43,5 +43,20 @@ Route::get('categories/{category:slug}', function (Category $category) {
     $posts = Post::all();
 
     return view('posts', ["posts" => $category->posts]);
-
 });
+
+//generate json for my recipes website
+Route::get('api/recipes', function () {
+    $recipes = getRecipes();
+
+    return response()->json($recipes, 200, [], JSON_PRETTY_PRINT);
+});
+
+function getRecipes()
+{
+    // get data from somewhere
+    $recipesJson = file_get_contents("recipes.json");
+    $recipes = json_decode($recipesJson);
+
+    return $recipes;
+}
