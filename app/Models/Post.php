@@ -16,4 +16,8 @@ class Post extends Model
 
     //3 option: forbid mass assignment:
     //protected $guarded = [];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }
