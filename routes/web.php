@@ -29,9 +29,9 @@ Route::get('/posts', function () {
 });
 
 //this approach works with other than ID(ex. slug)
-// Route::get('posts/{post:slug}', function (Post $post) { //give me the Post where ('slug', $post)->first(); 
-//     return view('post', ['post' => $post]);
-// });
+Route::get('posts/{post:slug}', function (Post $post) { //give me the Post where ('slug', $post)->first(); 
+    return view('post', ['post' => $post]);
+});
 
 //this approach works with ID
 // Route::get('posts/{post}', function (Post $post) {
@@ -39,10 +39,10 @@ Route::get('/posts', function () {
 // });
 
 //classic approach
-Route::get('posts/{id}', function (string $id) {
-    $post = Post::findOrFail($id);
-    return view('post', ['post' => $post]);
-});
+// Route::get('posts/{id}', function (string $id) {
+//     $post = Post::findOrFail($id);
+//     return view('post', ['post' => $post]);
+// });
 
 Route::get('categories/{category:slug}', function (Category $category) {
     $posts = Post::all();

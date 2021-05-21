@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<h1>MY TASTY RECIPES</h1>
 <?php foreach ($posts as $post) { ?>
     <article>
         <h1>
